@@ -19,8 +19,8 @@ y = tf.nn.softmax(tf.matmul(x, W) + b)
 # y_ is the real value of labeled data; y is the prediction. ood naming...
 y_ = tf.placeholder(tf.float32, [None, 10])
 # cross_entropy is a type of formulation for loss function
-# reduce_sum is just an element-wise sum for all the elements in the matrix,
-# which has a weird name. The tutorial says this formulation may cause unstability
+# reduce_sum is just an element-wise sum for all the elements in the matrix
+# The tutorial says this formulation may cause unstability
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
 # use gradient descent algorithm to minize the cost function
 # 0.5 means the changing step is 0.5 in the gradient descent algorithm
@@ -43,8 +43,7 @@ for _ in range(1000):
 # the accuracy will drop in the validation process.
 
 # evaluating the prediction results y with original label y_
-# the argmax function gives the index of the highest entry in axis 1. This
-# function is a bit blurry for its use here.
+# the argmax function gives the index of the highest entry in axis 1. 
 correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_:mnist.test.labels}))
